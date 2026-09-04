@@ -1,0 +1,31 @@
+{
+  "name": "sih",
+  "version": "1.0.0",
+  "description": "internal sih mvp",
+  "keywords": [
+    "sih-mvp",
+    "26016"
+  ],
+  "homepage": "https://github.com/shiftaura/sih-mvp#readme",
+  "bugs": {
+    "url": "https://github.com/shiftaura/sih-mvp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiftaura/sih-mvp.git"
+  },
+  "license": "ISC",
+  "author": "Avnish verma",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.23.0"
+  }
+}
