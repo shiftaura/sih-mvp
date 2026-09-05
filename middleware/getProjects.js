@@ -82,4 +82,4 @@ const getProjects = async (req, res) => {
   }
 };
 
-module.exports = { getProjects };
+module.exports = getProjects ;

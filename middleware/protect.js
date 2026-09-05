@@ -1,3 +1,4 @@
+const pool = require("../db");
 const jwt = require("jsonwebtoken");
 let token;
 const protect = async(req,res,next)=>{
@@ -5,12 +6,17 @@ const protect = async(req,res,next)=>{
         token = req.headers.authorization.replace("Bearer","").trim();
     }
     if(!token){
-        return res.status(400).json({success:false,error:{code:400,message:"login now"}});
+        return res.status(400).json({success:false,error:{code:"UNAUTHORIZED",message:"login now"}});
     }
-    const verify = jwt.verify(token,process.env.SECRET);
+    try{
+        const verify = jwt.verify(token,process.env.JWT_SECRET);
     const {userId,role} = verify;
     req.user = await pool.query('SELECT * FROM users WHERE id = $1', [userId]);
     next();
+    }
+    catch(err){
+        return res.status(400).json({success:false,error:{code:"UNAUTHORIZED",message:"login now"}});
+    }
 
 }
 module.exports = protect;
