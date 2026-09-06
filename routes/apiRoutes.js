@@ -3,4 +3,6 @@ const router = express.Router();
 
 router.use("/auth", require("./authRoutes.js"));
 router.use("/projects", require("./projectRoutes.js"));
+router.use("/workflow", require("./workflowRoutes.js"));
+router.use("/parcels", require("./parcelRoutes.js"));
 module.exports = router;
