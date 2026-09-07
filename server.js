@@ -1,10 +1,12 @@
 const express = require("express");
+const { protect } = require("./middleware/protect.js");
+const { authorize } = require("./middleware/protect.js");
 const app = express();
 const PORT = process.env.PORT || 3000;
 require("dotenv").config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", require("./routes/apiRoutes.js"));
+app.use("/api" ,require("./routes/apiRoutes.js"));
 app.listen(PORT, () => {
 
     console.log(`Server is running on port ${PORT}`);

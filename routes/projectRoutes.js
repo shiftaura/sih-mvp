@@ -1,5 +1,5 @@
 const pool = require('../db'); 
-const protect = require('../middleware/protect');
+const {protect} = require('../middleware/protect');
 const {getProjects} = require('../middleware/getProjects');
 const postProjects = require('../middleware/postProjects');
 const router=require('express').Router();
