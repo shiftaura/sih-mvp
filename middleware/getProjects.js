@@ -1,3 +1,5 @@
+
+const pool = require('../db');
 const getProjects = async (req, res) => {
   try {
     let { page, limit, search, state, district, status, type } = req.query;
