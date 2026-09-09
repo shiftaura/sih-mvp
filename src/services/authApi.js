@@ -1,13 +1,16 @@
 import api from "./api";
 
-// Login
-export async function login(credentials) {
-  const response = await api.post("/auth/login", credentials);
-  return response.data;
-}
+export const loginApi = async (credentials) => {
+  const response = await api.post("/auth/login", {
+    email: credentials.email,
+    password: credentials.password,
+  });
 
-// CAPTCHA
-export async function getCaptcha() {
-  const response = await api.get("/auth/captcha");
   return response.data;
-}
+};
+
+export const getCurrentUserApi = async () => {
+  const response = await api.get("/auth/me");
+
+  return response.data;
+};
