@@ -17,7 +17,7 @@ const login = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email });
     console.log(user);
     // FIX HERE: Use bcrypt.compare directly
-    
+    console.log(await bcrypt.compare(password, user.password))
     if (user && (await bcrypt.compare(password, user.password))) {
         const token = jwt.sign(
             { userId: user._id, role: user.role }, 
