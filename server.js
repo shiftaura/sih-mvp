@@ -2,6 +2,12 @@ const express = require("express");
 require("dotenv").config();
 const connectDB = require("./db"); // Updated DB connection
 const { errorHandler } = require("./middleware/errorMiddleware");
+const cors = require("cors");
+app.use(cors(
+    {origin:"https://nlas.shiftaura.in",
+        credentials:true,
+    }
+));
 
 
 const app = express();
