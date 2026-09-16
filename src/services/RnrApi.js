@@ -39,12 +39,13 @@ export const createFamily = async (familyData) => {
 };
 
 // PATCH /api/rnr/:id
+// PATCH /api/rnr/:id
 export const updateRnr = async (familyId, rnrData) => {
   const response = await api.patch(`/rnr/${familyId}`, {
     rehabilitationStatus: rnrData.rehabilitationStatus,
     resettlementStatus: rnrData.resettlementStatus,
-    housingAssistance: rnrData.housingAssistance,
+    // Safely mapping the old field to the required 'benefits' field
+    benefits: rnrData.benefits || rnrData.housingAssistance, 
   });
-
   return response.data;
 };

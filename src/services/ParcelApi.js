@@ -39,3 +39,17 @@ export const getGISProjectBoundary = async (projectId) => {
   const response = await api.get(`/gis/projects/${projectId}`);
   return response.data;
 };
+// POST /api/parcels
+// Creates a new land parcel with GIS geometry
+export const createParcel = async (parcelData) => {
+  const response = await api.post("/parcels", {
+    projectId: parcelData.projectId,
+    ownerName: parcelData.ownerName,
+    areaSize: Number(parcelData.areaSize), // Ensuring this is sent as a number
+    khasraNo: parcelData.khasraNo,
+    village: parcelData.village,
+    district: parcelData.district,
+    geoCoordinates: parcelData.geoCoordinates, // This must be a valid GeoJSON object
+  });
+  return response.data;
+};

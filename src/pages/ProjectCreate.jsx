@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { createProject } from "../services/projectApi";
+import { createProject } from "../services/ProjectApi";
 
 const PROJECT_TYPES = [
   "Highway Infrastructure",
@@ -14,6 +14,7 @@ const PROJECT_TYPES = [
 
 const INITIAL_FORM = {
   name: "",
+  projectCode: "",
   type: "",
   department: "",
   state: "",
@@ -45,6 +46,7 @@ export default function ProjectCreate() {
 
     if (
       !form.name ||
+      !form.projectCode ||
       !form.type ||
       !form.department ||
       !form.state ||
@@ -61,6 +63,7 @@ export default function ProjectCreate() {
 
       const response = await createProject({
         name: form.name.trim(),
+        projectCode: form.projectCode.trim(),
         type: form.type,
         department: form.department.trim(),
         state: form.state.trim(),
@@ -153,7 +156,15 @@ export default function ProjectCreate() {
               placeholder="Enter project name"
               required
             />
-
+            {/* Added Project Code Field */}
+            <FormField
+              label="Project Code"
+              name="projectCode"
+              value={form.projectCode}
+              onChange={handleChange}
+              placeholder="e.g. NHAI-2024-01"
+              required
+            />
             {/* Project Type */}
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">

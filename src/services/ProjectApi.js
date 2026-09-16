@@ -25,9 +25,11 @@ export const getProjectById = async (projectId) => {
 };
 
 // POST /api/projects
+// POST /api/projects
 export const createProject = async (projectData) => {
   const response = await api.post("/projects", {
     name: projectData.name,
+    projectCode: projectData.projectCode, // Added this line to match the API contract
     type: projectData.type,
     department: projectData.department,
     state: projectData.state,
@@ -35,7 +37,6 @@ export const createProject = async (projectData) => {
     requiredArea: projectData.requiredArea,
     targetDate: projectData.targetDate,
   });
-
   return response.data;
 };
 

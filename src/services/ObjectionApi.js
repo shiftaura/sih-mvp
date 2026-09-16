@@ -1,15 +1,14 @@
 import api from "./api";
 
-// GET /api/objections?projectId=&status=&parcelId=
-export const getObjections = async (params = {}) => {
-  const response = await api.get("/objections", {
+// GET /api/objections/project/:projectId
+export const getObjections = async (projectId, params = {}) => {
+  // Updated to use the correct URL structure
+  const response = await api.get(`/objections/project/${projectId}`, {
     params: {
-      projectId: params.projectId || undefined,
       status: params.status || undefined,
       parcelId: params.parcelId || undefined,
     },
   });
-
   return response.data;
 };
 
@@ -21,7 +20,6 @@ export const createObjection = async (objectionData) => {
     reason: objectionData.reason,
     description: objectionData.description,
   });
-
   return response.data;
 };
 
@@ -31,6 +29,5 @@ export const resolveObjection = async (objectionId, objectionData) => {
     status: objectionData.status,
     resolutionNote: objectionData.resolutionNote,
   });
-
   return response.data;
 };
