@@ -19,7 +19,7 @@ import {
   CloudSync,
 } from "lucide-react";
 
-import { login } from "../services/authApi";
+
 import { useAuth } from "../context/AuthContext";
 
 import logo from "../assets/nlas-logo.svg";
@@ -53,7 +53,7 @@ const roles = [
 
 function Login() {
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+  const { login } = useAuth();
 
   const [selectedRole, setSelectedRole] =
     useState("CENTRAL_OFFICER");
@@ -125,55 +125,32 @@ function Login() {
       return;
     }
 
-    try {
+   try {
       setLoading(true);
-
-      const data = await login({
-        role: selectedRole,
+      
+      // Context ke login function ko call karein. Yeh automatic 
+      // token aur user data ko sahi keys ke saath localStorage mein save kar dega.
+      await login({
         email: officerId.trim(),
-        password,
-        captchaCode: captchaInput.trim().toUpperCase(),
+        password: password,
       });
 
-      if (data?.token) {
-        localStorage.setItem("nlas_token", data.token);
-      }
-
-      if (data?.user) {
-        localStorage.setItem(
-          "nlas_user",
-          JSON.stringify(data.user)
-        );
-
-        setUser(data.user);
-      } else {
-        const fallbackUser = {
-          name: officerId.trim(),
-          email: officerId.trim(),
-          role: selectedRole,
-        };
-
-        localStorage.setItem(
-          "nlas_user",
-          JSON.stringify(fallbackUser)
-        );
-
-        setUser(fallbackUser);
-      }
-
+      // Agar upar wala function error throw nahi karta, matlab login successful hai.
       navigate("/dashboard");
+      
     } catch (loginError) {
       console.error(loginError);
-
       setError(
-        loginError?.response?.data?.message ||
-          "Authentication failed. Please verify your credentials."
+        loginError?.message || 
+        "Authentication failed. Please verify your credentials."
       );
-
       setSimulationState("invalid");
     } finally {
       setLoading(false);
     }
+
+      setSimulationState("invalid");
+   
   };
 
   return (
