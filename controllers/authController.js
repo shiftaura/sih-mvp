@@ -8,14 +8,14 @@ const { asyncHandler } = require('../middleware/errorMiddleware');
 // @route   POST /api/auth/login
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-
+    
     if (!email || !password) {
         res.status(400);
         throw new Error("Email and password are required");
     }
 
     const user = await User.findOne({ email });
-
+    console.log(user);
     // FIX HERE: Use bcrypt.compare directly
     if (user && (await bcrypt.compare(password, user.password))) {
         const token = jwt.sign(
