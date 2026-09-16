@@ -1,6 +1,7 @@
 // controllers/authController.js
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs'); // Or 'bcrypt' depending on what you installed
 const { asyncHandler } = require('../middleware/errorMiddleware');
 
 // @desc    Auth user & get token
@@ -15,7 +16,8 @@ const login = asyncHandler(async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    if (user && (await user.bcrypt.verify(password))) {
+    // FIX HERE: Use bcrypt.compare directly
+    if (user && (await bcrypt.compare(password, user.password))) {
         const token = jwt.sign(
             { userId: user._id, role: user.role }, 
             process.env.JWT_SECRET, 
@@ -41,6 +43,9 @@ const login = asyncHandler(async (req, res) => {
         throw new Error("Invalid email or password");
     }
 });
+
+// ... rest of your code
+
 
 // @desc    Get current logged in user
 // @route   GET /api/auth/me
