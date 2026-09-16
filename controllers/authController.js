@@ -1,7 +1,7 @@
 // controllers/authController.js
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs'); // Or 'bcrypt' depending on what you installed
+const bcrypt = require('bcrypt'); // Or 'bcrypt' depending on what you installed
 const { asyncHandler } = require('../middleware/errorMiddleware');
 
 // @desc    Auth user & get token
