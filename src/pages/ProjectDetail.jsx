@@ -16,7 +16,7 @@ import { Link, useParams } from "react-router-dom";
 import { getProjectById } from "../services/ProjectApi";
 import { getWorkflow } from "../services/WorkFlowApi";
 import WorkflowTimeline from "../components/layout/Projects/WorkflowTimeline";
-import GISMap from "../components/layout/Projects/GISMap";
+import GISMap from "../components/layout/Projects/GisMap";
 import ParcelDrawer from "../components/layout/Projects/ParcelDrawer";
 export default function ProjectDetail() {
   const { id } = useParams();
