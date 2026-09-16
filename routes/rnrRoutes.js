@@ -1,14 +1,10 @@
-const router = require("express").Router();
+// routes/rnrRoutes.js
+const express = require("express");
+const router = express.Router();
+const { getProjectFamilies, updateFamilyStatus } = require("../controllers/rnrController");
 const { protect } = require("../middleware/protect");
 
-router.get("/project/:projectId", protect, async (req, res) => {
-    res.status(200).json({
-        success: true,
-        data: { summary: { totalFamilies: 40, rehabilitated: 32, resettled: 30, pending: 8 }, families: [] }
-    });
-});
+router.get("/project/:projectId", protect, getProjectFamilies);
+router.patch("/:id", protect, updateFamilyStatus);
 
-router.patch("/:id", protect, async (req, res) => {
-    res.status(200).json({ success: true, data: { id: req.params.id, ...req.body }});
-});
 module.exports = router;

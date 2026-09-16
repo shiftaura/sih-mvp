@@ -1,10 +1,9 @@
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router();
+const { getAlerts, markAlertAsRead } = require("../controllers/alertController");
 const { protect } = require("../middleware/protect");
 
-router.get("/", protect, async (req, res) => {
-    res.status(200).json({ success: true, data: [{ id: "ALT-001", projectId: req.query.projectId, severity: "CRITICAL", type: "COMPENSATION PENDING", title: "Compensation Pending", message: "Multiple cases require attention", status: "UNREAD", createdAt: new Date().toISOString() }] });
-});
-router.patch("/:id/read", protect, async (req, res) => {
-    res.status(200).json({ success: true, data: { id: req.params.id, status: "READ" }});
-});
+router.get("/", protect, getAlerts);
+router.patch("/:id/read", protect, markAlertAsRead);
+
 module.exports = router;

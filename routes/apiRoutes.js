@@ -9,7 +9,7 @@ router.use("/parcels", require("./parcelRoutes.js"));
 router.use("/gis", require("./gisRoutes.js"));
 router.use("/notification",require("./notificationRouter.js"))
 router.use("/awards",require("./awards.js"))
-router.use("/compensation",require("./compensation.js"));
+router.use("/compensation", require("./compensationRoutes.js"));
 router.use("/families", require("./familyRoutes.js"));
 router.use("/rnr", require("./rnrRoutes.js"));
 router.use("/documents", require("./documentRoutes.js"));

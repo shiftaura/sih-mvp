@@ -1,15 +1,10 @@
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router();
+const { generateSignature, saveDocumentDetails, getProjectDocuments } = require("../controllers/documentController");
 const { protect } = require("../middleware/protect");
 
-// Note: Contract specifies multipart/form-data. You'll need `multer` middleware for actual file uploads.
-router.post("/upload", protect, async (req, res) => {
-    res.status(201).json({
-        success: true,
-        data: { id: "DOC-001", fileName: "Award_Letter_P003.pdf", documentType: req.body.documentType, version: 1, uploadedAt: new Date().toISOString() }
-    });
-});
+router.get("/signature", protect, generateSignature);
+router.post("/", protect, saveDocumentDetails);
+router.get("/project/:projectId", protect, getProjectDocuments);
 
-router.get("/project/:projectId", protect, async (req, res) => {
-    res.status(200).json({ success: true, data: [] });
-});
 module.exports = router;

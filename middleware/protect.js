@@ -1,36 +1,47 @@
-const pool = require("../db");
+// middleware/protect.js
 const jwt = require("jsonwebtoken");
-let token;
-const protect = async(req,res,next)=>{
-    if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
-        token = req.headers.authorization.replace("Bearer","").trim();
-    }
-    if(!token){
-        return res.status(400).json({success:false,error:{code:"UNAUTHORIZED",message:"login now"}});
-    }
-    try{
-        const verify = jwt.verify(token,process.env.JWT_SECRET);
-    const {userId,role} = verify;
-    req.user = await pool.query('SELECT * FROM users WHERE id = $1', [userId]);
-    next();
-    }
-    catch(err){
-        return res.status(400).json({success:false,error:{code:"UNAUTHORIZED",message:"login now"}});
+const User = require("../models/User");
+const { asyncHandler } = require("./errorMiddleware");
+
+const protect = asyncHandler(async (req, res, next) => {
+    let token;
+    
+    // Check if header contains the Bearer token
+    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+        token = req.headers.authorization.split(" ")[1].trim();
     }
 
-}
+    if (!token) {
+        res.status(401);
+        throw new Error("Not authorized, please login");
+    }
+
+    try {
+        // Verify token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        
+        // Fetch user from MongoDB and attach to req (excluding password)
+        req.user = await User.findById(decoded.userId).select('-password');
+        
+        if (!req.user) {
+            res.status(401);
+            throw new Error("User not found");
+        }
+        next();
+    } catch (err) {
+        res.status(401);
+        throw new Error("Token failed or expired");
+    }
+});
+
 const authorize = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user?.role)) {
-            return res.status(403).json({
-                success: false,
-                error: {
-                    code: 'FORBIDDEN',
-                    message: 'You lack permission to perform this action.'
-                }
-            });
+            res.status(403);
+            throw new Error('You lack permission to perform this action.');
         }
         next();
     };
 };
+
 module.exports = { protect, authorize };

@@ -1,13 +1,23 @@
 const express = require("express");
-const { protect } = require("./middleware/protect.js");
-const { authorize } = require("./middleware/protect.js");
+const connectDB = require("./db"); // Updated DB connection
+const { errorHandler } = require("./middleware/errorMiddleware");
+require("dotenv").config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
-require("dotenv").config();
+
+// Connect to MongoDB
+connectDB();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api" ,require("./routes/apiRoutes.js"));
-app.listen(PORT, () => {
 
+// Routes
+app.use("/api" ,require("./routes/apiRoutes.js"));
+
+// Global Error Handler (Must be after all routes)
+app.use(errorHandler);
+
+app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
