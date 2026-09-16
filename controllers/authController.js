@@ -15,7 +15,7 @@ const login = asyncHandler(async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    if (user && (await user.matchPassword(password))) {
+    if (user && (await user.bcrypt.verify(password))) {
         const token = jwt.sign(
             { userId: user._id, role: user.role }, 
             process.env.JWT_SECRET, 
