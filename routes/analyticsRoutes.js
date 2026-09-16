@@ -4,7 +4,7 @@ const { getDashboardAnalytics, getProjectAnalytics } = require("../controllers/a
 const { protect } = require("../middleware/protect");
 
 // Route for National Dashboard
-router.get("/dashboard", protect, getDashboardAnalytics);
+router.get("/dashboard", getDashboardAnalytics);
 
 // Route for Project-specific Dashboard (Overview Tab)
 router.get("/projects/:projectId", protect, getProjectAnalytics);
