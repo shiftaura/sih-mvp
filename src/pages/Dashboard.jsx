@@ -9,7 +9,7 @@ import {
   Users,
 } from "lucide-react";
 
-import { getDashboardAnalytics } from "../services/analyticsApi";
+import { getDashboardAnalytics } from "../services/AnalyticsApi";
 
 export default function Dashboard() {
   const [dashboard, setDashboard] = useState(null);

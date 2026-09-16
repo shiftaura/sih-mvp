@@ -9,7 +9,7 @@ import {
   AlertTriangle,
   Loader2,
 } from "lucide-react";
-import { getParcelById } from "../../../services/parcelApi";
+import { getParcelById } from "../../../services/ParcelApi";
 
 export default function ParcelDrawer({
   parcelId,

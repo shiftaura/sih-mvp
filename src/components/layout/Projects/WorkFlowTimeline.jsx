@@ -6,7 +6,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { useState } from "react";
-import { transitionWorkflow } from "../../../services/workflowApi";
+import { transitionWorkflow } from "../../../services/WorkFlowApi";
 const WORKFLOW_STATUSES = [
   "DRAFT",
   "SUBMITTED",

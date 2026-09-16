@@ -13,8 +13,8 @@ import {
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
-import { getProjectById } from "../services/projectApi";
-import { getWorkflow } from "../services/workflowApi";
+import { getProjectById } from "../services/ProjectApi";
+import { getWorkflow } from "../services/WorkFlowApi";
 import WorkflowTimeline from "../components/layout/Projects/WorkflowTimeline";
 import GISMap from "../components/layout/Projects/GISMap";
 import ParcelDrawer from "../components/layout/Projects/ParcelDrawer";
