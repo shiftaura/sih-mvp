@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import { getProjects } from "../services/projectApi";
+import { getProjects } from "../services/ProjectApi";
 
 const STATUS_OPTIONS = [
   "DRAFT",
