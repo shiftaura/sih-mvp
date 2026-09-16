@@ -39,6 +39,7 @@ const login = asyncHandler(async (req, res) => {
             }
         });
     } else {
+        console.log(await bcrypt.compare(password, user.password);
         res.status(401);
         throw new Error("Invalid email or password");
     }
